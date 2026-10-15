@@ -28,7 +28,7 @@ omnilab:
         materials-project:
             factory: materials-project
             options:
-                api_key: '%env(MP_API_KEY)%'   # required
+                api_key: '%env(MP_API_KEY)%'   # every call needs it
                 mailto: 'support@glitchr.io'   # in the User-Agent
 ```
 

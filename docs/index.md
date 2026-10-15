@@ -12,12 +12,12 @@ composer require omnilab/materials-project
 use Omnilab\MaterialsProject\MaterialsProjectSourceFactory;
 
 $mp = (new MaterialsProjectSourceFactory($httpClient))->create([
-    'api_key' => getenv('MP_API_KEY'),   // required: an account's key (never written in code)
+    'api_key' => getenv('MP_API_KEY'),   // an account's key, which every call needs (never written in code)
     'mailto' => 'support@glitchr.io',    // optional
 ]);
 ```
 
-Without `api_key`, the factory throws `InvalidConfigException`.
+Without `api_key`, the source is built (so that a registry of every source loads), and each call is refused before it is made with a `ProviderException` ("an API key is required").
 
 ## The scheme
 

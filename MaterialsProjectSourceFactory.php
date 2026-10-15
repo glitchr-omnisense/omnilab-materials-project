@@ -13,7 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
  * account's API key required (free, on registering).
  *
  *   options:
- *     api_key: '%env(MP_API_KEY)%'     # required: the key of a Materials Project account
+ *     api_key: '%env(MP_API_KEY)%'     # the key of a Materials Project account: every call needs one
  *     mailto: 'support@glitchr.io'     # in the User-Agent
  *     throttle: 0                      # seconds between two calls: no rate published
  *     base_uri: 'https://api.materialsproject.org/'
@@ -24,7 +24,8 @@ final class MaterialsProjectSourceFactory extends SourceFactory
     {
         $c->defaults([
             'omnilab.factory_name' => 'materials-project',
-            'omnilab.required_options' => ['api_key'],
+            'omnilab.required_options' => [],
+            'api_key' => null,
             'throttle' => 0.0,
             'base_uri' => MaterialsProjectSource::BASE_URI,
         ]);
@@ -34,7 +35,7 @@ final class MaterialsProjectSourceFactory extends SourceFactory
     {
         return new MaterialsProjectSource(
             $this->http ?? HttpClient::create(),
-            (string) $c->get('api_key'),
+            null === $c->get('api_key') || '' === $c->get('api_key') ? null : (string) $c->get('api_key'),
             (string) $c->get('base_uri', MaterialsProjectSource::BASE_URI),
             ['User-Agent' => self::userAgent($c)],
             (float) $c->get('throttle'),

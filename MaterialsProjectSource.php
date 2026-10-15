@@ -3,6 +3,7 @@
 namespace Omnilab\MaterialsProject;
 
 use Omnilab\Exception\NotSupportedException;
+use Omnilab\Exception\ProviderException;
 use Omnilab\Model\Domain;
 use Omnilab\Model\Entity;
 use Omnilab\Model\Identifier;
@@ -41,12 +42,20 @@ final class MaterialsProjectSource extends HttpSource
 
     public function __construct(
         HttpClientInterface $http,
-        string $apiKey,
+        private readonly ?string $apiKey,
         string $baseUri = self::BASE_URI,
         array $headers = [],
         float $throttle = 0.0,
     ) {
-        parent::__construct($http, $baseUri, ['X-API-KEY' => $apiKey] + $headers, $throttle);
+        parent::__construct($http, $baseUri, (null === $apiKey ? [] : ['X-API-KEY' => $apiKey]) + $headers, $throttle);
+    }
+
+    /** Every call needs a key: without one, refused before calling (the API's 401). */
+    private function keyed(): void
+    {
+        if (null === $this->apiKey || '' === $this->apiKey) {
+            throw new ProviderException('materials-project', 'an API key is required (the api_key option): the Materials Project answers nothing without one');
+        }
     }
 
     public function getName(): string
@@ -67,6 +76,7 @@ final class MaterialsProjectSource extends HttpSource
     public function entity(Identifier|string $id): ?Entity
     {
         $identifier = self::identify($id, Scheme::MATERIALS_PROJECT) ?? throw NotSupportedException::identifier('materials-project', (string) $id);
+        $this->keyed();
         $data = $this->getJson('materials/summary/', ['material_ids' => $identifier->value, '_fields' => implode(',', self::FIELDS), 'id_format' => 'legacy', '_limit' => 1])['data'] ?? [];
 
         return \is_array($data[0] ?? null) ? $this->toEntity($data[0]) : null;
@@ -87,6 +97,7 @@ final class MaterialsProjectSource extends HttpSource
         if ('' === $text) {
             return new Page();
         }
+        $this->keyed();
         $skip = max(0, (int) $query->cursor);
         $limit = max(1, min(self::MAX_LIMIT, $query->limit));
         $answer = $this->getJson('materials/summary/', [str_contains($text, '-') ? 'chemsys' : 'formula' => $text, '_fields' => implode(',', self::FIELDS), 'id_format' => 'legacy', '_skip' => $skip, '_limit' => $limit]) ?? [];

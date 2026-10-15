@@ -2,7 +2,6 @@
 
 namespace Omnilab\MaterialsProject\Tests;
 
-use Omnilab\Exception\InvalidConfigException;
 use Omnilab\Exception\NotSupportedException;
 use Omnilab\Exception\ProviderException;
 use Omnilab\MaterialsProject\MaterialsProjectSource;
@@ -97,11 +96,14 @@ final class MaterialsProjectSourceTest extends TestCase
         } catch (NotSupportedException) {
         }
         self::assertSame([Capability::ENTITY, Capability::SEARCH], $this->source()->capabilities());
+        $calls = \count($this->calls);
         try {
-            (new MaterialsProjectSourceFactory())->create();
+            (new MaterialsProjectSourceFactory(new MockHttpClient()))->create()->entity('mp-149');
             self::fail('a key is required');
-        } catch (InvalidConfigException) {
+        } catch (ProviderException $e) {
+            self::assertStringContainsString('an API key is required', $e->getMessage());
         }
+        self::assertCount($calls, $this->calls, 'refused before any call');
         $this->expectException(ProviderException::class);
         $this->expectExceptionMessage('No API key found in request');
         $this->source(new MockResponse((string) file_get_contents(__DIR__.'/Fixtures/no-key.json'), ['http_code' => 401]))->entity('mp-149');
