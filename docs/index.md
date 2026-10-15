@@ -24,7 +24,7 @@ Without `api_key`, the factory throws `InvalidConfigException`.
 A material is named in the core's `materialsproject` scheme: `mp-149`, lower case (another prefix,
 `mvc-...`, read too), read by its shape, from `materialsproject:` and from its page
 `materialsproject.org/materials/mp-149/`. Wikidata keeps these ids in P9902 (on one item on
-2026-10-16). The API also writes ids in an "AlphaID" form (`mp-aaaaaaft`); the source asks
+2026-10-15). The API also writes ids in an "AlphaID" form (`mp-aaaaaaft`); the source asks
 `id_format=legacy` so that every answer gives `mp-149`, and the scheme reads that form only.
 
 ## Which API
@@ -63,7 +63,7 @@ has nothing to follow.
 
 ## Verified, and not
 
-**Not tested live.** On 2026-10-16: a call without a key answers 401 `{"message":"No API key found
+**Not tested live.** On 2026-10-15: a call without a key answers 401 `{"message":"No API key found
 in request"}` (the fixture `no-key.json` is that answer); the OpenAPI document
 (`api.materialsproject.org/openapi.json`, version 0.87.3) is public and was read for the
 endpoint, its parameters, the header and the fields. No account was created, so nothing else was

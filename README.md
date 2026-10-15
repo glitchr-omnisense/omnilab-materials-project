@@ -1,7 +1,7 @@
 # omnilab/materials-project
 
 > **Not tested live.** The Materials Project's API answers nothing without an account's key ("No API
-> key found in request", 401, checked on 2026-10-16), and no account was created for this package.
+> key found in request", 401, checked on 2026-10-15), and no account was created for this package.
 > Its tests read answers built on the API's published OpenAPI schema (version 0.87.3), their numbers
 > placeholders. Details in [docs/index.md](docs/index.md#verified-and-not).
 
