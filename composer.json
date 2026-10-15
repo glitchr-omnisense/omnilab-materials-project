@@ -1,0 +1,45 @@
+{
+    "name": "omnilab/materials-project",
+    "type": "library",
+    "description": "Omnilab Materials Project: computed properties of inorganic materials by Materials Project id (mp-149) - formula, symmetry, density, energies per atom, stability, band gap, magnetism, elastic moduli - and the materials of a formula or a chemical system, through api.materialsproject.org (an account's key required). Not tested live.",
+    "keywords": [
+        "science",
+        "chemistry",
+        "materials",
+        "materials project",
+        "dft",
+        "crystal structures",
+        "omnilab"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marco Meyer",
+            "email": "marco.meyer@glitchr.io"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "glitchr/omnilab": "^1.0@dev",
+        "symfony/http-client": "^6.4|^7.0|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnilab\\MaterialsProject\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Omnilab\\MaterialsProject\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
