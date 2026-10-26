@@ -6,7 +6,7 @@
 > placeholders. Details in [docs/index.md](docs/index.md#verified-and-not).
 
 The Materials Project (Lawrence Berkeley National Laboratory) for
-[omniscient/omnilab](https://github.com/glitchr-studio/omnilab): computed properties of inorganic
+[omnisense/omnilab](https://github.com/glitchr-omnisense/omnilab): computed properties of inorganic
 materials - a material by its id (`mp-149`): formula, chemical system, elements, sites, density,
 volume, symmetry, energies per atom (total, formation, above the hull), stability, band gap, metal
 or not, magnetism, elastic moduli, whether theoretical, its ids in other databases -; the
