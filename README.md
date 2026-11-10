@@ -40,6 +40,17 @@ terms on its website; its API distinguishes data under a "commercial" and a "non
 licence (the `license` parameter). Read them before use. Heavy use is announced to
 heavy.api.use@materialsproject.org, as the API's documentation asks.
 
+## Usage policy
+
+Declared as data in [`policy.json`](policy.json) (read at https://docs.materialsproject.org/downloading-data/using-the-api/tips-for-large-downloads on 2026-11-10), and honoured on every request by the
+core: a limit reached waits when its window ends within `max_wait` seconds, else the request is not
+sent ([Usage policies](https://github.com/glitchr-omnisense/omnilab/blob/1.x/docs/policies.md)).
+
+- Limits: 25 a second per key.
+- Licence: CC-BY-4.0; commercial use: unknown.
+- Credit: required: Jain A. et al., The Materials Project: A materials genome approach to accelerating materials innovation, APL Materials 1, 011002 (2013) (https://next-gen.materialsproject.org/about/cite).
+- Needs: a key.
+
 ## Responsibility
 
 This package is an independent, unofficial client: it is not affiliated with, endorsed by or

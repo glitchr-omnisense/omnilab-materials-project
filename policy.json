@@ -1,0 +1,49 @@
+{
+    "$schema": "https://github.com/glitchr-omnisense/contracts/blob/1.x/resources/usage-policy.schema.json",
+    "provider": "materials-project",
+    "rateLimits": [
+        {
+            "max": 25,
+            "window": "second",
+            "every": 1,
+            "scope": "key",
+            "operations": [],
+            "note": "The API documentation: \"rate limits on requests starting at 25/second\" (a starting threshold, per account key as the page implies; not said whether higher tiers exist)."
+        }
+    ],
+    "concurrency": null,
+    "rights": {
+        "commercial": "unknown",
+        "openSourceRequired": null,
+        "caching": {
+            "permission": "unknown",
+            "maxTtl": null
+        },
+        "storage": "unknown",
+        "redistribution": "unknown",
+        "attribution": {
+            "required": true,
+            "text": "Jain A. et al., The Materials Project: A materials genome approach to accelerating materials innovation, APL Materials 1, 011002 (2013)",
+            "url": "https://next-gen.materialsproject.org/about/cite",
+            "where": [
+                "source"
+            ]
+        },
+        "licence": "CC-BY-4.0"
+    },
+    "requirements": {
+        "key": true,
+        "userAgent": {
+            "required": false,
+            "pattern": null
+        }
+    },
+    "provenance": {
+        "terms": "https://next-gen.materialsproject.org/about/terms",
+        "policy": "https://docs.materialsproject.org/downloading-data/using-the-api/tips-for-large-downloads",
+        "verifiedAt": "2026-11-10",
+        "declaredBy": "maintainer",
+        "contact": "heavy.api.use@materialsproject.org",
+        "notes": "Read 2026-11-10: the docs page \"tips for large downloads\" (rate limits starting at 25/second; repeated large queries should use a local copy) and \"access-controlled data\" (terms per data product on the Terms page; the mp-api client applies the terms accepted at registration; GNoME only for non-commercial use). The Terms and Cite pages (next-gen.materialsproject.org) answered a Cloudflare check and were not read: CC BY 4.0 for the core data comes from search-engine excerpts of the Cite and legacy Terms pages; GNoME and ELEMENTA data are CC BY-NC, so commercial, storage and redistribution stay unknown per product. Every call needs the account API key (X-API-KEY). The heavy-use contact is from this package's README, not re-read on the provider's pages. A third-party note claims 2000 requests/day; not on the provider's pages."
+    }
+}
