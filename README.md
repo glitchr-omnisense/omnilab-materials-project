@@ -32,6 +32,41 @@ omnilab:
                 mailto: 'support@glitchr.io'   # in the User-Agent
 ```
 
+## Install and a first call
+
+```sh
+composer require omnilab/materials-project
+```
+
+The Materials Project's API answers nothing without an account's key (free, at
+materialsproject.org). This first call needs none: silicon (mp-149), its answer built after the
+API's published schema (the formula and space group are silicon's), so nothing leaves the process
+(Symfony's `MockHttpClient` answers in place of the service). A real call gives the factory no
+client (it makes its own) and the source `['api_key' => getenv('MP_API_KEY')]`.
+
+```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Omnilab\MaterialsProject\MaterialsProjectSourceFactory;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
+
+// The service's answer, recorded: no account, and nothing leaves the process.
+$http = new MockHttpClient(new MockResponse('{"data": [{"material_id": "mp-149", "formula_pretty": "Si", "chemsys": "Si", "elements": ["Si"], "nelements": 1,
+    "symmetry": {"crystal_system": "Cubic", "symbol": "Fd-3m", "number": 227, "point_group": "m-3m"}}], "meta": {"total_doc": 1}}'));
+$mp = (new MaterialsProjectSourceFactory($http))->create(['api_key' => 'not-a-key']);
+$silicon = $mp->entity('mp-149');
+echo $silicon->id, ' ', $silicon->value('formula'), ', ', $silicon->value('space_group'), "\n";
+```
+
+Its output:
+
+```
+materialsproject:mp-149 Si, Fd-3m
+```
+
 ## Terms of use
 
 The Materials Project asks to be cited (A. Jain et al., The Materials Project: A materials genome
